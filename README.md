@@ -1,4 +1,4 @@
-# Demonstrating the Computon Model
+# Computon Framework Tutorial
 
 This project presents a series of examples to demonstrate the use of the [Computon Model's Java API](https://github.com/damianarellanes/computons-java). More use cases will be added as development progresses.
 
