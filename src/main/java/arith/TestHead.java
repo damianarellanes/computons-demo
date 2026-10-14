@@ -1,4 +1,4 @@
-package lsfa;
+package arith;
 
 import category.comp.colimits.Operators;
 import category.comp.diagrams.HDiagramBuilder;
@@ -26,7 +26,7 @@ import synthesis.TypeConfig;
 public final class TestHead {
   
   public TestHead (DeviceRegistry devReg, TypeConfig typeConfig, 
-    PrimitivesLSFA primitives) {           
+    PrimitivesArith primitives) {           
     
     /*******************************************************/
     /* COMPOSITION */

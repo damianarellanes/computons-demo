@@ -1,4 +1,4 @@
-package lsfa;
+package arith;
 
 import category.comp.objects.Primitive;
 import category.comp.objects.PrimitiveBuilder;

@@ -1,4 +1,4 @@
-package lsfa.devices;
+package arith.devices;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,4 +1,4 @@
-package lsfa.devices;
+package arith.devices;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,26 +11,23 @@ import synthesis.Device;
  * @author Damian Arellanes
  * Inputs: Integer
  * Output: Integer
- * Behaviour: Computes the factorial of an integer
+ * Behaviour: Returns the predecessor of an integer
  */
 @RestController
-@Component("Factorial")
-public class Factorial implements Device <Factorial.InFact, Integer> {
+@Component("Predecessor")
+public class Predecessor implements Device <Predecessor.InPre, Integer> {
 
-  public record InFact(Integer p1) implements Parameters {}  /* JSON Request */
+  public record InPre(Integer p1) implements Parameters {}  /* JSON Request */
   
   @Override
-  @PostMapping("/factorial")
-  public Integer exec(@RequestBody InFact inputs) {    
-    
-    int n = inputs.p1(), f = 1;
-    for (int i = 2; i <=n; i++) f *= i; 
-    return f;
+  @PostMapping("/prev")
+  public Integer exec(@RequestBody InPre inputs) {    
+    return inputs.p1() - 1;
   }
 
   @Override
-  public Class<InFact> getParametersClass() {
-    return InFact.class;
+  public Class<InPre> getParametersClass() {
+    return InPre.class;
   }
   
   @Override

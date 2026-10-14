@@ -1,4 +1,4 @@
-package lsfa.devices;
+package arith.devices;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,23 +11,23 @@ import synthesis.Device;
  * @author Damian Arellanes
  * Inputs: Integer
  * Output: Integer
- * Behaviour: Returns the successor of an integer
+ * Behaviour: Adds 5 to an integer
  */
 @RestController
-@Component("Successor")
-public class Successor implements Device <Successor.InSucc, Integer> {
+@Component("Recurrent")
+public class Recurrent implements Device <Recurrent.InF, Integer> {
 
-  public record InSucc(Integer p1) implements Parameters {}  /* JSON Request */
+  public record InF(Integer p1) implements Parameters {}  /* JSON Request */
   
   @Override
-  @PostMapping("/next")
-  public Integer exec(@RequestBody InSucc inputs) {    
-    return inputs.p1() + 1;
+  @PostMapping("/recurrent")
+  public Integer exec(@RequestBody InF inputs) {    
+    return inputs.p1() + 5;
   }
 
   @Override
-  public Class<InSucc> getParametersClass() {
-    return InSucc.class;
+  public Class<InF> getParametersClass() {
+    return InF.class;
   }
   
   @Override

@@ -1,4 +1,4 @@
-package lsfa.devices;
+package arith.devices;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,23 +11,23 @@ import synthesis.Device;
  * @author Damian Arellanes
  * Inputs: Integer
  * Output: Integer
- * Behaviour: Subtracts 2 from an integer
+ * Behaviour: Returns the successor of an integer
  */
 @RestController
-@Component("Correction")
-public class Correction implements Device <Correction.InC, Integer> {
+@Component("Successor")
+public class Successor implements Device <Successor.InSucc, Integer> {
 
-  public record InC(Integer p1) implements Parameters {}  /* JSON Request */
+  public record InSucc(Integer p1) implements Parameters {}  /* JSON Request */
   
   @Override
-  @PostMapping("/correct") 
-  public Integer exec(@RequestBody InC inputs) {    
-    return inputs.p1() - 2;
+  @PostMapping("/next")
+  public Integer exec(@RequestBody InSucc inputs) {    
+    return inputs.p1() + 1;
   }
 
   @Override
-  public Class<InC> getParametersClass() {
-    return InC.class;
+  public Class<InSucc> getParametersClass() {
+    return InSucc.class;
   }
   
   @Override

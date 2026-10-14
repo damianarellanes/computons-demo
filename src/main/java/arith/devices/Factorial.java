@@ -1,4 +1,4 @@
-package lsfa.devices;
+package arith.devices;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,23 +11,26 @@ import synthesis.Device;
  * @author Damian Arellanes
  * Inputs: Integer
  * Output: Integer
- * Behaviour: Adds 5 to an integer
+ * Behaviour: Computes the factorial of an integer
  */
 @RestController
-@Component("Recurrent")
-public class Recurrent implements Device <Recurrent.InF, Integer> {
+@Component("Factorial")
+public class Factorial implements Device <Factorial.InFact, Integer> {
 
-  public record InF(Integer p1) implements Parameters {}  /* JSON Request */
+  public record InFact(Integer p1) implements Parameters {}  /* JSON Request */
   
   @Override
-  @PostMapping("/recurrent")
-  public Integer exec(@RequestBody InF inputs) {    
-    return inputs.p1() + 5;
+  @PostMapping("/factorial")
+  public Integer exec(@RequestBody InFact inputs) {    
+    
+    int n = inputs.p1(), f = 1;
+    for (int i = 2; i <=n; i++) f *= i; 
+    return f;
   }
 
   @Override
-  public Class<InF> getParametersClass() {
-    return InF.class;
+  public Class<InFact> getParametersClass() {
+    return InFact.class;
   }
   
   @Override

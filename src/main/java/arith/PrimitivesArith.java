@@ -1,4 +1,4 @@
-package lsfa;
+package arith;
 
 import category.comp.objects.Primitive;
 import org.springframework.stereotype.Service;
@@ -11,12 +11,12 @@ import synthesis.TypeConfig;
  * @author Damian Arellanes
  */
 @Service
-public class PrimitivesLSFA {
+public class PrimitivesArith {
   
   private final DeviceRegistry devReg;
   private final TypeConfig typeConfig;
   
-  public PrimitivesLSFA (DeviceRegistry devReg, TypeConfig typeConfig) {
+  public PrimitivesArith (DeviceRegistry devReg, TypeConfig typeConfig) {
     
     this.devReg = devReg;
     this.typeConfig = typeConfig;

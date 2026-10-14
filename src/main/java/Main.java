@@ -8,9 +8,9 @@ import synthesis.DevicesConfig;
 
 /**
  * @author Damian Arellanes
- * This executes the LSTM and LSFA test cases using application.properties
+ * This executes the LSTM and Arith use cases, using application.properties
  */
-@SpringBootApplication(scanBasePackages = {"lstm", "lsfa", "synthesis"})
+@SpringBootApplication(scanBasePackages = {"lstm", "arith", "synthesis"})
 @EnableConfigurationProperties(DevicesConfig.class)
 public class Main {
   

@@ -1,4 +1,4 @@
-package lsfa.devices;
+package arith.devices;
 
 import operation.Control;
 import org.springframework.stereotype.Component;

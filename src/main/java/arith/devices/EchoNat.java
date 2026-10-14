@@ -1,4 +1,4 @@
-package lsfa.devices;
+package arith.devices;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,23 +11,23 @@ import synthesis.Device;
  * @author Damian Arellanes
  * Inputs: Integer
  * Output: Integer
- * Behaviour: Returns the predecessor of an integer
+ * Behaviour: Echoes an integer
  */
 @RestController
-@Component("Predecessor")
-public class Predecessor implements Device <Predecessor.InPre, Integer> {
+@Component("EchoNat")
+public class EchoNat implements Device <EchoNat.InEchoNat, Integer> {
 
-  public record InPre(Integer p1) implements Parameters {}  /* JSON Request */
+  public record InEchoNat(Integer p1) implements Parameters {}  /* JSON Request */ 
   
   @Override
-  @PostMapping("/prev")
-  public Integer exec(@RequestBody InPre inputs) {    
-    return inputs.p1() - 1;
+  @PostMapping("/echoNat")
+  public Integer exec(@RequestBody InEchoNat inputs) {    
+    return inputs.p1();
   }
 
   @Override
-  public Class<InPre> getParametersClass() {
-    return InPre.class;
+  public Class<InEchoNat> getParametersClass() {
+    return InEchoNat.class;
   }
   
   @Override

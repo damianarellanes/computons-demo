@@ -1,7 +1,7 @@
-package lsfa;
+package arith;
 
 import category.comp.colimits.Operators;
-import category.comp.diagrams.BranSpanBuilder;
+import category.comp.diagrams.TotalSeqSpanBuilder;
 import category.comp.objects.Computon;
 import category.comp.objects.Primitive;
 import category.comp.objects.TrivialBuilder;
@@ -19,25 +19,25 @@ import synthesis.TypeConfig;
 
 /**
  * @author Damian Arellanes
- * (Open Branching) Composite: add1 ? minus1
+ * Total Sequential Composite: multiply >> add1
  */
 @Service
-@Profile("test-branching")
-public final class TestBranching {
+@Profile("test-totalseq")
+public final class TestTotalSeq {
   
-  public TestBranching (DeviceRegistry devReg, TypeConfig typeConfig, 
-    PrimitivesLSFA primitives) throws ExecutionException {           
+  public TestTotalSeq (DeviceRegistry devReg, TypeConfig typeConfig, 
+    PrimitivesArith primitives) throws ExecutionException {           
     
     /*******************************************************/
     /* COMPOSITION */
     /*******************************************************/
     
-    Computon composite = branching(
-      primitives.successor(), primitives.predecessor()
+    Computon composite = totalSeq(
+      primitives.multiplication(), primitives.successor()
     );
     
     System.out.println(composite);
-    new ComputonDiagram(composite, devReg).generate("branching-composite");    
+    new ComputonDiagram(composite, devReg).generate("total-seq-composite");
     
     /*******************************************************/
     /* EXECUTION */
@@ -49,6 +49,7 @@ public final class TestBranching {
     State initialState = new State(flatComposite, config);
     initialState.map[0] = Control.SIGNAL;
     initialState.map[2] = 7;
+    initialState.map[3] = 4;
     
     Runtime runtime = new Runtime (flatComposite, config);
     try {
@@ -60,16 +61,17 @@ public final class TestBranching {
     }
   }
   
-  public Computon branching(Primitive left, Primitive right) {
+  public Computon totalSeq(Primitive left, Primitive right) {
     
     TrivialBuilder apex = new TrivialBuilder(2, 2, 0);    
     apex.c(0, 0);apex.c(1, 1);
     
-    BranSpanBuilder span = new BranSpanBuilder(
-      apex.build(), left, right);
-    span.set_P(0, 0, 0);  // 0<--0-->0
-    span.set_P(2, 1, 2);  // 2<--1-->2
+    TotalSeqSpanBuilder span = new TotalSeqSpanBuilder(
+      apex.build(), left, right
+    );
+    span.set_P(1, 0, 0);  // 1<--0-->0
+    span.set_P(4, 1, 2);  // 4<--1-->2
     
-    return Operators.BRAN(span.build());
+    return Operators.TOTAL_SEQ(span.build());
   }  
 }

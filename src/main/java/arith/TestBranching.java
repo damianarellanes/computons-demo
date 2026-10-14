@@ -1,7 +1,10 @@
-package lsfa;
+package arith;
 
 import category.comp.colimits.Operators;
+import category.comp.diagrams.BranSpanBuilder;
 import category.comp.objects.Computon;
+import category.comp.objects.Primitive;
+import category.comp.objects.TrivialBuilder;
 import graph.ComputonDiagram;
 import java.util.concurrent.ExecutionException;
 import operation.Runtime;
@@ -16,25 +19,25 @@ import synthesis.TypeConfig;
 
 /**
  * @author Damian Arellanes
- * Async Parallel Copmposite: multiply | add
+ * (Open Branching) Composite: add1 ? minus1
  */
 @Service
-@Profile("test-parallel")
-public final class TestParallel {
+@Profile("test-branching")
+public final class TestBranching {
   
-  public TestParallel (DeviceRegistry devReg, TypeConfig typeConfig, 
-    PrimitivesLSFA primitives) throws ExecutionException {           
+  public TestBranching (DeviceRegistry devReg, TypeConfig typeConfig, 
+    PrimitivesArith primitives) throws ExecutionException {           
     
     /*******************************************************/
     /* COMPOSITION */
     /*******************************************************/
     
-    Computon composite = Operators.PAR(
-      primitives.multiplication(), primitives.addition()
+    Computon composite = branching(
+      primitives.successor(), primitives.predecessor()
     );
     
     System.out.println(composite);
-    new ComputonDiagram(composite, devReg).generate("async-parallel-composite");
+    new ComputonDiagram(composite, devReg).generate("branching-composite");    
     
     /*******************************************************/
     /* EXECUTION */
@@ -46,10 +49,6 @@ public final class TestParallel {
     State initialState = new State(flatComposite, config);
     initialState.map[0] = Control.SIGNAL;
     initialState.map[2] = 7;
-    initialState.map[3] = 4;
-    initialState.map[5] = Control.SIGNAL;
-    initialState.map[7] = 3;
-    initialState.map[8] = 0.2;
     
     Runtime runtime = new Runtime (flatComposite, config);
     try {
@@ -59,5 +58,18 @@ public final class TestParallel {
     } catch (InterruptedException | ExecutionException ex) {
       System.err.println(ex);
     }
+  }
+  
+  public Computon branching(Primitive left, Primitive right) {
+    
+    TrivialBuilder apex = new TrivialBuilder(2, 2, 0);    
+    apex.c(0, 0);apex.c(1, 1);
+    
+    BranSpanBuilder span = new BranSpanBuilder(
+      apex.build(), left, right);
+    span.set_P(0, 0, 0);  // 0<--0-->0
+    span.set_P(2, 1, 2);  // 2<--1-->2
+    
+    return Operators.BRAN(span.build());
   }  
 }

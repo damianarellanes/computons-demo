@@ -1,4 +1,4 @@
-package lsfa.devices;
+package arith.devices;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,23 +11,23 @@ import synthesis.Device;
  * @author Damian Arellanes
  * Inputs: Integer
  * Output: Integer
- * Behaviour: Echoes an integer
+ * Behaviour: Subtracts 2 from an integer
  */
 @RestController
-@Component("EchoNat")
-public class EchoNat implements Device <EchoNat.InEchoNat, Integer> {
+@Component("Correction")
+public class Correction implements Device <Correction.InC, Integer> {
 
-  public record InEchoNat(Integer p1) implements Parameters {}  /* JSON Request */ 
+  public record InC(Integer p1) implements Parameters {}  /* JSON Request */
   
   @Override
-  @PostMapping("/echoNat")
-  public Integer exec(@RequestBody InEchoNat inputs) {    
-    return inputs.p1();
+  @PostMapping("/correct") 
+  public Integer exec(@RequestBody InC inputs) {    
+    return inputs.p1() - 2;
   }
 
   @Override
-  public Class<InEchoNat> getParametersClass() {
-    return InEchoNat.class;
+  public Class<InC> getParametersClass() {
+    return InC.class;
   }
   
   @Override

@@ -1,10 +1,7 @@
-package lsfa;
+package arith;
 
 import category.comp.colimits.Operators;
-import category.comp.diagrams.TotalSeqSpanBuilder;
 import category.comp.objects.Computon;
-import category.comp.objects.Primitive;
-import category.comp.objects.TrivialBuilder;
 import graph.ComputonDiagram;
 import java.util.concurrent.ExecutionException;
 import operation.Runtime;
@@ -19,25 +16,25 @@ import synthesis.TypeConfig;
 
 /**
  * @author Damian Arellanes
- * Total Sequential Composite: multiply >> add1
+ * Async Parallel Copmposite: multiply | add
  */
 @Service
-@Profile("test-totalseq")
-public final class TestTotalSeq {
+@Profile("test-parallel")
+public final class TestParallel {
   
-  public TestTotalSeq (DeviceRegistry devReg, TypeConfig typeConfig, 
-    PrimitivesLSFA primitives) throws ExecutionException {           
+  public TestParallel (DeviceRegistry devReg, TypeConfig typeConfig, 
+    PrimitivesArith primitives) throws ExecutionException {           
     
     /*******************************************************/
     /* COMPOSITION */
     /*******************************************************/
     
-    Computon composite = totalSeq(
-      primitives.multiplication(), primitives.successor()
+    Computon composite = Operators.PAR(
+      primitives.multiplication(), primitives.addition()
     );
     
     System.out.println(composite);
-    new ComputonDiagram(composite, devReg).generate("total-seq-composite");
+    new ComputonDiagram(composite, devReg).generate("async-parallel-composite");
     
     /*******************************************************/
     /* EXECUTION */
@@ -50,6 +47,9 @@ public final class TestTotalSeq {
     initialState.map[0] = Control.SIGNAL;
     initialState.map[2] = 7;
     initialState.map[3] = 4;
+    initialState.map[5] = Control.SIGNAL;
+    initialState.map[7] = 3;
+    initialState.map[8] = 0.2;
     
     Runtime runtime = new Runtime (flatComposite, config);
     try {
@@ -59,19 +59,5 @@ public final class TestTotalSeq {
     } catch (InterruptedException | ExecutionException ex) {
       System.err.println(ex);
     }
-  }
-  
-  public Computon totalSeq(Primitive left, Primitive right) {
-    
-    TrivialBuilder apex = new TrivialBuilder(2, 2, 0);    
-    apex.c(0, 0);apex.c(1, 1);
-    
-    TotalSeqSpanBuilder span = new TotalSeqSpanBuilder(
-      apex.build(), left, right
-    );
-    span.set_P(1, 0, 0);  // 1<--0-->0
-    span.set_P(4, 1, 2);  // 4<--1-->2
-    
-    return Operators.TOTAL_SEQ(span.build());
   }  
 }

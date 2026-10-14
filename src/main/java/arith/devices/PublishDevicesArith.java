@@ -1,4 +1,4 @@
-package lsfa.devices;
+package arith.devices;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Publishes all devices in this package as web services
  */
 @SpringBootApplication
-public class PublishDevicesLSFA {
+public class PublishDevicesArith {
   
   public static void main(String[] args) {
-    SpringApplication.run(PublishDevicesLSFA.class, args);
+    SpringApplication.run(PublishDevicesArith.class, args);
   }  
 }
