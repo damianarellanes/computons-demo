@@ -1,0 +1,77 @@
+package lsfa;
+
+import category.comp.colimits.Operators;
+import category.comp.diagrams.TotalSeqSpanBuilder;
+import category.comp.objects.Computon;
+import category.comp.objects.Primitive;
+import category.comp.objects.TrivialBuilder;
+import graph.ComputonDiagram;
+import java.util.concurrent.ExecutionException;
+import operation.Runtime;
+import operation.Config;
+import operation.Control;
+import operation.FlatComputon;
+import operation.State;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
+import synthesis.DeviceRegistry;
+import synthesis.TypeConfig;
+
+/**
+ * @author Damian Arellanes
+ * Total Sequential Composite: multiply >> add1
+ */
+@Service
+@Profile("test-totalseq")
+public final class TestTotalSeq {
+  
+  public TestTotalSeq (DeviceRegistry devReg, TypeConfig typeConfig, 
+    PrimitivesLSFA primitives) throws ExecutionException {           
+    
+    /*******************************************************/
+    /* COMPOSITION */
+    /*******************************************************/
+    
+    Computon composite = totalSeq(
+      primitives.multiplication(), primitives.successor()
+    );
+    
+    System.out.println(composite);
+    new ComputonDiagram(composite, devReg).generate("total-seq-composite");
+    
+    /*******************************************************/
+    /* EXECUTION */
+    /*******************************************************/
+    
+    FlatComputon flatComposite = new FlatComputon(composite);
+    Config config = new Config (typeConfig.getColour(), devReg.getEndpoints());
+    
+    State initialState = new State(flatComposite, config);
+    initialState.map[0] = Control.SIGNAL;
+    initialState.map[2] = 7;
+    initialState.map[3] = 4;
+    
+    Runtime runtime = new Runtime (flatComposite, config);
+    try {
+      
+      State finalState = runtime.step(initialState);
+      
+    } catch (InterruptedException | ExecutionException ex) {
+      System.err.println(ex);
+    }
+  }
+  
+  public Computon totalSeq(Primitive left, Primitive right) {
+    
+    TrivialBuilder apex = new TrivialBuilder(2, 2, 0);    
+    apex.c(0, 0);apex.c(1, 1);
+    
+    TotalSeqSpanBuilder span = new TotalSeqSpanBuilder(
+      apex.build(), left, right
+    );
+    span.set_P(1, 0, 0);  // 1<--0-->0
+    span.set_P(4, 1, 2);  // 4<--1-->2
+    
+    return Operators.TOTAL_SEQ(span.build());
+  }  
+}

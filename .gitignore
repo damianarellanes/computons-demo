@@ -1,0 +1,8 @@
+macOS
+.DS_Store
+
+Netbeans
+nbactions.xml
+
+Maven build output
+target/
