@@ -14,7 +14,7 @@ The project currently demonstrates two use cases: ARITH and LSTM.
   <div align="center">
     <img src="images/branching-composite.png" alt="A branching computon">
   </div>
-- "test-head" creates a head-iterative computon to compute "$n+3$" $k>=0$ times. The number of times is randomly decided.
+- "test-head" creates a head-iterative computon to compute "$`n+3$`$" $k \geq 0$ times. The number of times is randomly decided.
   <div align="center">
     <img src="images/head-iterative-composite.png" alt="A head-iterative computon">
   </div>
