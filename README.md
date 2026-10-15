@@ -43,9 +43,7 @@ The project currently demonstrates two use cases: ARITH and LSTM.
   - Do not remove the "SpringBootApplication" annotation since this indicates the packages where the use cases are implemented.
   - A successful run will output the execution trace in discrete time steps. We use a vector of the form [s1,s2,...,sn] to represent port states where port ids correspond to vector indices.
   - A successful run generates a PNG figure of the executed computon, saved in the root folder. The corresponding figures, which are shown above, are visual representations directly derived from the formal definition of computons.
-
-
-Please note that an "epsilon device" is used for echoing control.
+  - Please note that an "epsilon device" is used for echoing control.
 
 ## 🛠️ Development
 
