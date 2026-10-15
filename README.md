@@ -34,7 +34,7 @@ The project currently demonstrates two use cases: ARITH and LSTM.
   <div align="center">
     <img src="images/total-seq-composite.png" alt="A total sequential computon">
   </div>  
-- "test-lstm" creates a composite computon that embodies the behaviour of an LSTM.
+- "test-lstm" creates a composite computon that embodies the behaviour of an LSTM. The sigmoid and tanh functions are devices with their own fixed weights and bias. The test assigns $h_{t-1}=[1,2]$ to the inports p2, p10, p15 and p30, and $x_t=[3,-1,0]$ to the inports p3, p11, p16 and p31. The vector $c_{t-1}=[10,-4]}$ is assigned to p6. The ports p0, p8 and p13 receive control signals. With these input values, the LSTM composite produces a vector $c_t=[9.5586, -3.5452]$ in p28 and a vector $h_t=[0.4013, -0.6889]$ in p36. The outports p35 and p37 simply hold control signals. The execution occurs in 6 time steps.
   <div align="center">
     <img src="images/memory-cell.png" alt="An LSTM computon">
   </div>
