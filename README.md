@@ -26,7 +26,7 @@ The project currently demonstrates two use cases: ARITH and LSTM.
   <div align="center">
     <img src="images/partial-seq-composite.png" alt="A partial sequential computon">
   </div>  
-- "test-tail" creates a tail-iterative computon to compute either $n+5$ or $n+3$ $k>0$ times. The decision is random.
+- "test-tail" creates a tail-iterative computon to compute either "$`n+5`$" or "$`n+3`$" $k>0$ times. The decision is random.
   <div align="center">
     <img src="images/tail-iterative-composite.png" alt="A tail-iterative computon">
   </div>  
