@@ -14,7 +14,7 @@ The project currently demonstrates two use cases: ARITH and LSTM.
   <div align="center">
     <img src="images/branching-composite.png" alt="A branching computon">
   </div>
-- "test-head" creates a head-iterative computon to compute "$`n+3$`$" $k \geq 0$ times. The number of times is randomly decided.
+- "test-head" creates a head-iterative computon to compute "$`n+3`$" $k \geq 0$ times. The number of times is randomly decided.
   <div align="center">
     <img src="images/head-iterative-composite.png" alt="A head-iterative computon">
   </div>
@@ -22,15 +22,15 @@ The project currently demonstrates two use cases: ARITH and LSTM.
   <div align="center">
     <img src="images/async-parallel-composite.png" alt="A parallel computon">
   </div>
-- "test-partialseq" creates a partial sequential computon for computing "$(a \times b) + c$". Here, an addition device receives the result from a multiplication device and a value c from the external world.
+- "test-partialseq" creates a partial sequential computon for computing $`(a \times b) + c`$. Here, an addition device receives the result from a multiplication device and a value c from the external world.
   <div align="center">
     <img src="images/partial-seq-composite.png" alt="A partial sequential computon">
   </div>  
-- "test-tail" creates a tail-iterative computon to compute either "$n+5$" or "$n+3" k>0 times. The decision is random.
+- "test-tail" creates a tail-iterative computon to compute either $n+5$ or $n+3$ $k>0$ times. The decision is random.
   <div align="center">
     <img src="images/tail-iterative-composite.png" alt="A tail-iterative computon">
   </div>  
-- "test-totalseq" creates a total sequential computon to compute "$(a \times b) + 1$".
+- "test-totalseq" creates a total sequential computon to compute $`(a \times b) + 1`$.
   <div align="center">
     <img src="images/total-seq-composite.png" alt="A total sequential computon">
   </div>  
